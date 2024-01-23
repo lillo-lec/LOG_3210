@@ -14,7 +14,7 @@
     <option name="done" value="true" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -52,8 +52,13 @@
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Lillo/Desktop/TP1/TP1-H24/TP1-H24",
+    "last_opened_file_path": "C:/Users/Lillo/Desktop/LOG_3210_TP1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
@@ -159,6 +164,7 @@
       <workItem from="1663968413263" duration="4988000" />
       <workItem from="1664387062479" duration="994000" />
       <workItem from="1706041314225" duration="94000" />
+      <workItem from="1706042359696" duration="785000" />
     </task>
     <servers />
   </component>
