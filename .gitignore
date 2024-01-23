@@ -1,3 +1,6 @@
+gen-src/
+out/
+test-suite/SyntaxTest/result/
 # Compiled class file
 *.class
 
