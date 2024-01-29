@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f78fcd25-ae32-4a93-9d1a-c77dec044451" name="Default" comment="" />
+    <list default="true" id="f78fcd25-ae32-4a93-9d1a-c77dec044451" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Grammaire.jjt" beforeDir="false" afterPath="$PROJECT_DIR$/Grammaire.jjt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LOG3210_TP1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/LOG3210_TP1.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,7 +58,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Lillo/Desktop/LOG_3210_TP1",
+    "last_opened_file_path": "C:/Users/Lillo/Desktop/Essaie/LOG_3210_TP1",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -62,7 +66,7 @@
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
@@ -146,6 +150,9 @@
     <attachedChunks>
       <set>
         <option value="jdk-1.8.0_402-corretto-1.8.0_402-f644763e9732-af3fa2b8" />
+        <option value="jdk-18.0.2-azul-18.0.2.1-4caba194b151-760f583b" />
+        <option value="jdk-18.0.2-azul-18.0.2.1-f644763e9732-d6bd9cf6" />
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
       </set>
     </attachedChunks>
   </component>
@@ -165,10 +172,26 @@
       <workItem from="1664387062479" duration="994000" />
       <workItem from="1706041314225" duration="94000" />
       <workItem from="1706042359696" duration="785000" />
+      <workItem from="1706551153944" duration="152000" />
+      <workItem from="1706551510928" duration="1075000" />
+      <workItem from="1706552654866" duration="161000" />
+      <workItem from="1706552932763" duration="367000" />
+      <workItem from="1706553310536" duration="7530000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

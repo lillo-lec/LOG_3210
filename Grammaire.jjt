@@ -92,8 +92,10 @@ TOKEN :
     < DEF: "default">|
     < FOR: "for"> |
     < FUNC: "func"> |
-    < RET: "return">
+    < RET: "return"> |
 	// À compléter au besoin
+	< BREAK: "break" > |
+	< ENUM: "enum" >
 }
 
 // Operators
@@ -162,7 +164,7 @@ void Block() #void : {}
 
 void Stmt() #void : {}
 {
-	AssignStmt() <SEMICOLON>
+	AssignStmt()  <SEMICOLON> | EnumStmt()
 }
 
 void AssignStmt() : {}
@@ -171,9 +173,38 @@ void AssignStmt() : {}
 }
 
 // TODO: Ajouter tous vos statements ici (Voir énoncé)
-void ArrayExpr() : {}
+
+//void IfStmt() : {}
+//{
+//    <IF> <LPAREN> Expr() <RPAREN> Block()
+//    |
+//    <IF> <LPAREN> Expr() <RPAREN> <LACC> Block() <RACC>
+//    |
+//    <IF> <LPAREN> Expr() <RPAREN> <LACC> Block() <RACC> <ELSE>  <LACC> Block() <RACC>
+//    |
+//    <IF> <LPAREN> Expr() <RPAREN> <LACC> Block() <RACC> (<ELSE><IF>  <LACC> Block() <RACC>)* <ELSE>  <LACC> Block() <RACC>
+//}
+void EnumStmt() : {}
 {
-    <LBRA> (Expr() (<COMMA> Expr())*)? <RBRA>
+    <ENUM> Identifier() "{" Identifier() ( "," Identifier() )* "}"
+}
+void SwitchStmt() : {}
+{
+    <SWITCH> "(" Identifier() ")" <LACC>
+    (CaseStmt())* (DefaultStmt())?
+}
+void CaseStmt() : {}
+{
+    <CASE> (Identifier() | IntValue()) ":"
+    Block()
+    <BREAK> <SEMICOLON>
+
+}
+void DefaultStmt() : {}
+{
+    <DEF> ":"
+    Block()
+    <BREAK> <SEMICOLON>
 }
 
 
@@ -183,7 +214,7 @@ void ArrayExpr() : {}
 
 void Expr() #void : {}
 {
-    BasicExpr() | ArrayExpr()
+    BasicExpr() | ArrayExpr() | ETOULogExpr()
 }
 
 void BasicExpr() #void : {}
@@ -194,9 +225,39 @@ void BasicExpr() #void : {}
 
 // TODO: Ajouter tous vos expressions ici (Voir énoncé)
 
+void ArrayExpr() : {}
+{
+    <LBRA> (Expr() (<COMMA> Expr())*)? <RBRA>
+}
 
-
-
+void ParenExpr() : {}
+{
+    <LPAREN> Expr() <RPAREN>
+}
+void NotExpr() : {}
+{
+    <NOT> ParenExpr() | ParenExpr()
+}
+void NegaExpr() : {}
+{
+    <MINUS> NotExpr() | NotExpr()
+}
+void MulDivExpr() : {}
+{
+    NegaExpr() ( ("*" | "/") NegaExpr() )*
+}
+void AddSubExpr() : {}
+{
+     MulDivExpr() ( ("+" | "-") MulDivExpr() )*
+}
+void ComparExpr() : {}
+{
+   AddSubExpr() ( <COMPARE> AddSubExpr() )?
+}
+void ETOULogExpr() : {}
+{
+   ComparExpr() ( <LOGIC> ComparExpr() )?
+}
 // Expressions de base (Ne pas modifier):
 
 void Identifier() : {}
