@@ -164,7 +164,8 @@ void Block() #void : {}
 
 void Stmt() #void : {}
 {
-	AssignStmt()  <SEMICOLON> | EnumStmt()
+	AssignStmt()  <SEMICOLON> | WhileStmt() | DoWhileStmt() | IfStmt() | ForStmt() | EnumStmt() | SwitchStmt()
+
 }
 
 void AssignStmt() : {}
@@ -173,40 +174,60 @@ void AssignStmt() : {}
 }
 
 // TODO: Ajouter tous vos statements ici (Voir énoncé)
-
-//void IfStmt() : {}
-//{
-//    <IF> <LPAREN> Expr() <RPAREN> Block()
-//    |
-//    <IF> <LPAREN> Expr() <RPAREN> <LACC> Block() <RACC>
-//    |
-//    <IF> <LPAREN> Expr() <RPAREN> <LACC> Block() <RACC> <ELSE>  <LACC> Block() <RACC>
-//    |
-//    <IF> <LPAREN> Expr() <RPAREN> <LACC> Block() <RACC> (<ELSE><IF>  <LACC> Block() <RACC>)* <ELSE>  <LACC> Block() <RACC>
-//}
+void WhileStmt() : {}
+{
+    <WHILE> <LPAREN> Expr() #WhileCond <RPAREN> ((<LACC> Block() #WhileBlock <RACC> ) | Stmt() #WhileBlock)
+}
+void DoWhileStmt() : {}
+ {
+     <DO> <LACC> Block() #WhileBlock <RACC> <WHILE> <LPAREN> Expr() #WhileCond <RPAREN> <SEMICOLON>
+ }
+void IfStmt() : {}
+{
+    <IF> <LPAREN> Expr() #IfCond <RPAREN>
+        (
+            Stmt() #IfBlock | (<LACC> Block() <RACC>) #IfBlock
+        )
+        (
+        LOOKAHEAD(2) <ELSE>
+            (
+                Stmt() #ElseBlock | (<LACC> Block() <RACC>) #ElseBlock
+            )
+        )?
+}
+void ForStmt() : {}
+{
+    <FOR> <LPAREN> (AssignStmt())? <SEMICOLON> (Expr())? <SEMICOLON> (AssignStmt())? <RPAREN> (Stmt() | <LACC> Block() <RACC>)
+}
 void EnumStmt() : {}
 {
-    <ENUM> Identifier() "{" Identifier() ( "," Identifier() )* "}"
+    <ENUM> Identifier() "{" (Identifier() ( "," Identifier() )*)?  "}"
 }
 void SwitchStmt() : {}
 {
     <SWITCH> "(" Identifier() ")" <LACC>
-    (CaseStmt())* (DefaultStmt())?
+    (CaseStmt())+
+    (DefaultStmt())?
+    <RACC>
 }
 void CaseStmt() : {}
 {
     <CASE> (Identifier() | IntValue()) ":"
-    Block()
-    <BREAK> <SEMICOLON>
-
+    (CaseBlock())?
 }
 void DefaultStmt() : {}
 {
     <DEF> ":"
-    Block()
-    <BREAK> <SEMICOLON>
+    (CaseBlock())?
 }
-
+void CaseBlock() : {}
+{
+   Stmt() (BreakStmt())?
+}
+void BreakStmt() : {}
+{
+   <BREAK> <SEMICOLON>
+}
 
 // ---------- STATEMENTS END ----------
 
@@ -214,7 +235,7 @@ void DefaultStmt() : {}
 
 void Expr() #void : {}
 {
-    BasicExpr() | ArrayExpr() | ETOULogExpr()
+    ArrayExpr() | ETOULogExpr()
 }
 
 void BasicExpr() #void : {}
@@ -225,38 +246,38 @@ void BasicExpr() #void : {}
 
 // TODO: Ajouter tous vos expressions ici (Voir énoncé)
 
-void ArrayExpr() : {}
+void ArrayExpr() #ArrayExpr : {}
 {
     <LBRA> (Expr() (<COMMA> Expr())*)? <RBRA>
 }
 
-void ParenExpr() : {}
+void ParenExpr() #void : {}
 {
-    <LPAREN> Expr() <RPAREN>
+    BasicExpr() | (<LPAREN> Expr() <RPAREN>)
 }
-void NotExpr() : {}
+void NotExpr() #void : {}
 {
-    <NOT> ParenExpr() | ParenExpr()
+    ParenExpr() | <NOT> NotExpr() #Not
 }
-void NegaExpr() : {}
+void NegaExpr() #void : {}
 {
-    <MINUS> NotExpr() | NotExpr()
+    <MINUS> NotExpr() #Minus | NotExpr()
 }
-void MulDivExpr() : {}
+void MulDivExpr() #void : {}
 {
-    NegaExpr() ( ("*" | "/") NegaExpr() )*
+    (NegaExpr() ( ("*" | "/") NegaExpr() )*) #Multi(>1)
 }
-void AddSubExpr() : {}
+void AddSubExpr() #void : {}
 {
-     MulDivExpr() ( ("+" | "-") MulDivExpr() )*
+     (MulDivExpr() ( LOOKAHEAD(2) ("+" | "-") MulDivExpr() )*) #Addition(>1)
 }
-void ComparExpr() : {}
+void ComparExpr() #void : {}
 {
-   AddSubExpr() ( <COMPARE> AddSubExpr() )?
+   (AddSubExpr() ( <COMPARE> AddSubExpr() )*) #Compare(>1)
 }
-void ETOULogExpr() : {}
+void ETOULogExpr() #void : {}
 {
-   ComparExpr() ( <LOGIC> ComparExpr() )?
+   (ComparExpr() (<LOGIC> ComparExpr()) * )#Logic(>1)
 }
 // Expressions de base (Ne pas modifier):
 
