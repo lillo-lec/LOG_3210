@@ -253,15 +253,15 @@ void ArrayExpr() #ArrayExpr : {}
 
 void ParenExpr() #void : {}
 {
-    BasicExpr() | (<LPAREN> Expr() <RPAREN>)
+   (<LPAREN> Expr() <RPAREN>) #Paren(>1) | BasicExpr()
 }
 void NotExpr() #void : {}
 {
-    ParenExpr() | <NOT> NotExpr() #Not
+    (<NOT> NotExpr() #Not) | ParenExpr()
 }
 void NegaExpr() #void : {}
 {
-    <MINUS> NotExpr() #Minus | NotExpr()
+    (<MINUS> NegaExpr() #Minus)  | NotExpr()
 }
 void MulDivExpr() #void : {}
 {
